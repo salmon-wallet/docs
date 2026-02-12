@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-sans: 'DM Sans', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --ui-primary: #ff7f6b;
+  --ui-color-primary-50: #fff3ef;
+  --ui-color-primary-100: #ffe3db;
+  --ui-color-primary-200: #ffc3b5;
+  --ui-color-primary-300: #ffa28f;
+  --ui-color-primary-400: #ff8874;
+  --ui-color-primary-500: #ff7f6b;
+  --ui-color-primary-600: #e86f5c;
+  --ui-color-primary-700: #c7574a;
+  --ui-color-primary-800: #a3413a;
+  --ui-color-primary-900: #7d2f2b;
+  --ui-color-primary-950: #541f1c;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+/* Hide edit/report widgets explicitly */
+.doc-feedback,
+.doc-page-edit,
+[data-testid="page-edit"],
+[data-testid="page-feedback"] {
+  display: none !important;
+}
+
+/* Catch-all for any remaining edit/report link wrappers */
+.doc-page-links,
+.doc-page-links *,
+[data-testid="feedback-link"],
+[data-testid="edit-link"] {
+  display: none !important;
+}
+
+/* Extra guard for edit/report link variants */
+.doc-links,
+.doc-links *,
+.page-links,
+.page-links *,
+a[href*="edit-this-page"],
+a[href*="/edit"],
+a[href*="report-an-issue"],
+a[href*="/issues/new"],
+[aria-label="Edit this page"],
+[aria-label="Report an issue"],
+.doc-footer-links,
+.doc-footer-links *,
+.doc-page-footer,
+.doc-page-footer *,
+.doc-links hr,
+.doc-page-links hr {
+  display: none !important;
+}
+
+[data-theme='dark'] {
+  --font-sans: 'DM Sans', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --ui-primary: #ff7f6b;
+  --ui-color-primary-50: #fff3ef;
+  --ui-color-primary-100: #ffe3db;
+  --ui-color-primary-200: #ffc3b5;
+  --ui-color-primary-300: #ffa28f;
+  --ui-color-primary-400: #ff8874;
+  --ui-color-primary-500: #ff7f6b;
+  --ui-color-primary-600: #e86f5c;
+  --ui-color-primary-700: #c7574a;
+  --ui-color-primary-800: #a3413a;
+  --ui-color-primary-900: #7d2f2b;
+  --ui-color-primary-950: #541f1c;
+}
