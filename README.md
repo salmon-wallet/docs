@@ -62,4 +62,4 @@ The static output is emitted to `.output` for hosting.
 
 - Product & downloads: [salmonwallet.io](https://salmonwallet.io)
 - Updates & announcements: [medium.com/@salmonwallet](https://medium.com/@salmonwallet)
-- Wallet source code: [github.com/salmonw/salmon-wallet-v2](https://github.com/salmonw/salmon-wallet-v2)
+- Wallet source code: [github.com/salmonw-wallet/salmon-wallet-v2](https://github.com/salmon-wallet/salmon-wallet-v2)
