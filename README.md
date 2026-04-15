@@ -1,6 +1,6 @@
 # Salmon Wallet Docs
 
-**Self-custodial, open-source, and community-owned Solana wallet — documented.**
+**Open Wallet Infrastructure — documented.**
 
 This repository powers the public documentation for [Salmon Wallet](https://salmonwallet.io). It captures how to install and verify Salmon, keep your recovery phrase safe, connect to Solana dApps, and contribute to the project. Our guiding principle: transparency keeps self-custody secure and sustainable for everyone.
 
