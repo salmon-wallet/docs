@@ -13,7 +13,7 @@ ui:
 #title
 <span class="flex flex-col items-center gap-5 text-center">
   <img src="/salmon-logo-docs.png" alt="Salmon icon" class="w-20 h-20 sm:w-24 sm:h-24" />
-  <span class="text-balance">Open-source & community-owned Solana wallet</span>
+  <span class="text-balance">Open Wallet Infrastructure</span>
 </span>
 
 #description
