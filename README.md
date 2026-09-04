@@ -2,7 +2,7 @@
 
 **Open Wallet Infrastructure — documented.**
 
-This repository powers the public documentation for [Salmon Wallet](https://salmonwallet.io). It captures how to install and verify Salmon, keep your recovery phrase safe, connect to Solana dApps, and contribute to the project. Our guiding principle: transparency keeps self-custody secure and sustainable for everyone.
+This repository powers the public documentation for [Salmon Wallet](https://salmonwallet.io). It covers the released mobile and browser-extension surfaces, safe wallet use, architecture, API integration, and contribution workflows.
 
 > “We want Salmon to be 100% transparent. Open-source software promotes decentralization and allows for a more democratic and inclusive ecosystem. It enables anyone to participate and contribute to the project, fostering long-term sustainability and growth. It also helps to ensure the security and reliability of the code. Why should we use a closed-source self-custodial wallet then?”
 
@@ -24,9 +24,9 @@ Your preview will be available at `http://localhost:3000`.
 
 - **Install & verify** — Get Salmon from the official sources and confirm authenticity.
 - **Create or restore** — Set up a self-custodial wallet and protect your recovery phrase.
-- **Use Salmon with dApps** — Connect confidently to Solana apps and review permissions.
-- **Migrate from other wallets** — Bring your existing Solana accounts into Salmon safely.
-- **Contribute** — Improve the wallet and docs; openness keeps the ecosystem resilient.
+- **Use Salmon** — Send, receive, review activity, manage accounts, and work with collectibles.
+- **Connect to dApps** — Understand Wallet Standard connections and approval requests.
+- **Build Salmon** — Learn the frontend, backend, API, storage, blockchain, and testing architecture.
 
 ## Repo layout
 
@@ -34,8 +34,8 @@ Your preview will be available at `http://localhost:3000`.
 salmon-wallet-docs/
 ├── content/               # Markdown + MDC content
 │   ├── index.md           # Homepage
-│   ├── 1.getting-started/ # Install, safety basics, contribute
-│   └── 2.developer-zone/  # Wallet architecture chapters (onboarding → adapters)
+│   ├── 1.getting-started/ # User guides, security, releases, contributing
+│   └── 2.developer-zone/  # Source-backed architecture and development guides
 ├── public/                # Static assets (favicons, images)
 └── package.json           # Scripts and dependencies
 ```
@@ -66,4 +66,5 @@ The static output is emitted to `.output` for hosting.
 
 - Product & downloads: [salmonwallet.io](https://salmonwallet.io)
 - Updates & announcements: [medium.com/@salmonwallet](https://medium.com/@salmonwallet)
-- Wallet source code: [github.com/salmonw-wallet/salmon-wallet-v2](https://github.com/salmon-wallet/salmon-wallet-v2)
+- Wallet source code: [github.com/Salmon-HQ/salmon-wallet-frontend](https://github.com/Salmon-HQ/salmon-wallet-frontend)
+- Backend source code: [github.com/Salmon-HQ/salmon-wallet-backend](https://github.com/Salmon-HQ/salmon-wallet-backend)

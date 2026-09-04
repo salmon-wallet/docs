@@ -1,55 +1,53 @@
 ---
-title: Onboarding Flow
-description: Guide users through creating or recovering a Salmon wallet safely with a clear setup wizard.
+title: Frontend Architecture
+description: Understand the frontend monorepo, ownership boundaries, and application entry points.
 navigation:
-  icon: i-lucide-rocket
+  icon: i-lucide-panels-top-left
 seo:
-  title: Onboarding Flow
-  description: How Salmon’s onboarding flow helps users create or recover wallets securely with guided steps.
+  title: Salmon frontend architecture
+  description: Packages, apps, routing, and ownership rules in the Salmon Wallet frontend.
 ---
 
-# Chapter 1: Onboarding Flow
+The frontend is a pnpm workspace coordinated by Turborepo. It uses TypeScript and React 19 across the active applications.
 
-The onboarding flow is the first safety gate in Salmon: it creates or restores a wallet, anchors recovery, and routes users into the main experience with minimal risk.
+## Repository layout
 
-## Goals
-- Make “Create” and “Recover” obvious and mutually exclusive.
-- Keep seed phrases on-device and never expose them outside trusted UI.
-- Collect only what’s essential (password, seed phrase confirmation).
-- Block navigation until critical steps are completed.
+```text
+apps/
+├── extension/   # WXT extension: background, content, injected and side-panel UI
+└── mobile/      # Expo / React Native application
+packages/
+├── assets/      # Shared fonts, icons and images
+├── shared/      # Cross-platform logic and contracts
+└── ui/          # React DOM components for the extension
+```
 
-## Core flow
-1) **Entry screen:** CTA for Create vs Recover. Minimal copy, clear benefits for each path.  
-2) **Create:** Generate seed phrase, force full phrase reveal, require confirmation (word positions), then set a local password.  
-3) **Recover:** Paste/enter phrase, validate checksum/length, prompt for password.  
-4) **Post-setup:** Surface backup reminder + “Go to wallet” CTA; offer learn-more links, not extra choices.
+## Ownership rules
 
-## UX safety checklist
-- Disable screenshots on mobile during phrase display when possible.  
-- Clipboard: avoid auto-copy; if allowed, show a timed warning.  
-- Require explicit acknowledgement of recovery guidance before continuing.  
-- Show network (mainnet/devnet) status early to reduce confusion later.
+### `packages/shared`
 
-## Key implementation hooks
-- Navigation: `useNavigation()` routes between steps.  
-- UI: button/alert components from the component library for consistent emphasis.  
-- Validation: seed utilities for checksum/wordlist validation; password strength hints in-line.
+Owns everything that does not draw: API services, blockchain logic, crypto, storage, hooks, contexts, settings contracts, semantic types, i18n resources, and theme tokens. It must remain usable from React Native and the browser.
 
-## Test cases
-- Create flow blocks progression until phrase is confirmed.  
-- Recover rejects malformed/short phrases with actionable errors.  
-- Password prompt appears for both create/recover.  
-- After success, wallet state is present in `AppContext` and storage.
+### `packages/ui`
 
-## Sequencing (high level)
-1. User selects Create/Recover → route change.  
-2. Seed phrase generated or validated.  
-3. Backup confirmation → password set.  
-4. Account locked + stored → context updated → navigate to wallet.
+Owns DOM components shared by extension surfaces. It must not be imported by the mobile app.
 
-## Tips for maintainers
-- Keep copy concise and directive; remove jargon in onboarding screens.  
-- Log declined/failed steps (anonymized) to find friction points.  
-- Reuse the same password/seed components in both create and recover to reduce divergence.
+### `apps/mobile`
 
----
+Owns React Native rendering, Expo Router routes, native integrations, biometrics, QR scanning, screen-capture protection, and Mobile Wallet Adapter wiring.
+
+### `apps/extension`
+
+Owns WXT entrypoints, browser APIs, injected providers, Wallet Standard integration, dApp approval pages, side-panel navigation, and session-specific key caching.
+
+## One flow, two renderings
+
+Shared hooks and contexts hold wallet behavior once. Mobile and extension render platform-specific components against shared `*PropsBase` contracts. The parity check prevents the two applications from silently drifting.
+
+Put new code in the narrowest correct owner. Do not place DOM or React Native dependencies in `packages/shared`, and do not duplicate a backend contract inside an app.
+
+## Routing
+
+Mobile uses Expo Router files under `apps/mobile/app`. Auth routes cover setup and recovery; protected routes cover the wallet, activity, sends, collectibles, settings, and account management.
+
+The extension uses page state inside the side panel. Separate WXT entrypoints provide the background worker, content script, injected provider, popup bootstrap, and side-panel bootstrap.

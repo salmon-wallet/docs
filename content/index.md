@@ -1,7 +1,7 @@
 ---
 seo:
   title: Salmon Wallet Docs
-  description: Salmon is the open-source, community-owned, self-custodial Solana wallet. Learn how to install, stay secure, and contribute.
+  description: Learn how to install, secure, use, and contribute to the open-source Salmon Wallet.
 ---
 
 ::u-page-hero
@@ -17,7 +17,7 @@ ui:
 </span>
 
 #description
-<span class="block text-center text-lg text-gray-600 max-w-3xl mx-auto">In Salmon we trust. Salmon makes crypto easy and safe to store, buy, send, receive, and swap tokens and NFTs—without ever giving up your keys.</span>
+<span class="block text-center text-lg text-gray-600 max-w-3xl mx-auto">Open-source, self-custodial wallet infrastructure for Solana and Bitcoin. Learn how to install Salmon, protect your recovery phrase, use the wallet, and contribute.</span>
 
 #links
   ::div{class="flex flex-wrap justify-center gap-4 mt-4"}

@@ -1,49 +1,44 @@
 ---
-title: Stack, scripts, and contributing
-description: Tech stack overview, project layout, and how to contribute to Salmon Wallet.
+title: System Overview
+description: How the Salmon applications, shared packages, and backend fit together.
 navigation:
-  icon: i-lucide-hammer
+  icon: i-lucide-boxes
 seo:
-  title: Salmon stack and contributing
-  description: Learn the Salmon Wallet stack, repository layout, and contribution workflow.
+  title: Salmon system overview
+  description: A source-backed overview of the Salmon Wallet architecture.
 ---
 
-## Stack at a glance
+Salmon is split across three repositories:
 
-::warning
-This section describes the wallet architecture as understood when these docs were written. Verify versions, scripts, paths, and platform behavior against the wallet source repository before relying on them. A source-backed revision is planned.
-::
+| Repository | Responsibility |
+| --- | --- |
+| [`salmon-wallet-frontend`](https://github.com/Salmon-HQ/salmon-wallet-frontend) | Mobile app, browser extension, shared wallet logic, UI, and assets |
+| [`salmon-wallet-backend`](https://github.com/Salmon-HQ/salmon-wallet-backend) | Public HTTP API, data-provider orchestration, caching, and network capability catalog |
+| [`docs`](https://github.com/salmon-wallet/docs) | User and contributor documentation |
 
-- React 18 + React Native 0.70 for shared UI and logic.
-- Web client uses Create React App; browser extensions target Chrome/Brave and Firefox.
-- Solana integration via `@solana/web3.js` 1.95.x; Bitcoin flows use BitcoinJS.
-- Node 18+ required; serverless helpers ship for release automation.
+## Runtime surfaces
 
-## Repository layout
+The frontend produces two applications:
 
-- `src/` – shared React components, hooks, screens, and blockchain integration logic.
-- `extension/` – background/content scripts and manifests for Chromium/Firefox bundles.
-- `android/`, `ios/` – React Native platform projects (run pods in `ios/` after install).
-- `assets/`, `public/` – static assets consumed across targets.
-- Env templates live at repo root (`env.local.json`, `env.develop.json`, `env.main.json`, `env.prod.json`).
+- `apps/mobile`: React Native application built with Expo.
+- `apps/extension`: Chrome MV3 and Firefox extension built with WXT. It renders as a browser side panel.
 
-## Install and run
+The standalone web wallet is retired. Both active applications reuse business logic from `packages/shared`; the extension uses the DOM component library in `packages/ui`, while mobile owns its React Native components.
 
-```bash
-yarn install
-cd ios && pod install   # iOS only
-```
+## Request flow
 
-Pick an environment by setting `REACT_APP_SALMON_ENV` or copying the right template into `env.local.json`.
+For backend-backed data, the normal flow is:
 
-- Web dev: `yarn start:web` (CRA dev server on port 3006 by default)
-- Web builds: `yarn build`, `yarn build:main`, `yarn build:prod`
-- Extension bundles: `yarn build:extension` (or `:chrome`, `:mozilla`)
-- Tests: `yarn test` (web) and `yarn test:native` (React Native)
-- Lint: `yarn lint` / `yarn lint:fix`
+`screen → shared hook/context → API service → Salmon API → provider → resource response`
 
-## Contributing
+Key creation and transaction signing stay in the client. The backend returns public data or unsigned transaction material; it does not receive the user's recovery phrase or private key.
 
-- Read `CONTRIBUTION-AGREEMENT.md` before opening a PR.
-- Follow lint/test checks locally before submitting.
-- Open issues for bugs or feature proposals; avoid public reports for security concerns and contact maintainers directly.
+## Supported chains
+
+- Solana: active and the most developed integration.
+- Bitcoin: active for balances, history, UTXOs, sending, and receiving.
+The backend's `/v1/networks` response is the runtime source of truth for enabled networks and features.
+
+## Source versions reviewed
+
+This documentation was rebuilt against frontend `main` and backend `origin/main` on September 4, 2026. Product behavior can move faster than these docs; when a conflict exists, tests and current source code win.
