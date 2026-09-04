@@ -37,7 +37,7 @@ pnpm mobile:ios
 pnpm mobile:android
 ```
 
-Copy the relevant `.env.example` for local development. Local application defaults target the sibling backend on `127.0.0.1:3001`.
+Copy the relevant `.env.example` for local development. Local application defaults target the sibling backend at `http://127.0.0.1:3000/local`.
 
 Before a pull request:
 
@@ -50,7 +50,9 @@ pnpm check:parity
 
 ## Backend
 
-The supported local path uses Docker and exposes the API on port 3001. Follow the backend README for environment setup, then run its Compose stack or Serverless offline target.
+Copy `.env.example` to `.env` and configure the provider credentials needed by the routes you are testing. In particular, local startup currently requires a valid `HELIUS_API_KEY`; keep it only in the ignored `.env` file and never commit it.
+
+Start Redis with Docker Compose, then run the Serverless offline target as described in the backend README. By default, the API is available at `http://127.0.0.1:3000/local`; the frontend is already configured to use that URL during local development.
 
 Core checks:
 
