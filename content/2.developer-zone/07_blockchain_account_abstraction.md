@@ -20,9 +20,11 @@ Solana mainnet, testnet, and devnet are present in the backend catalog. Develope
 
 ## Bitcoin
 
-Bitcoin support includes balance, history, UTXO selection, fee estimation, transaction construction, signing, broadcast, confirmation lookup, and maximum-send calculation.
+Bitcoin read support includes balances, history, and UTXOs. The frontend also contains fee estimation, transaction construction, signing, broadcast, confirmation, and maximum-send code, but these pieces do not form a working end-to-end send path in the current product.
 
-Account derivation uses `m/44'/0'/{index}'/0/0` and produces P2PKH addresses. Mainnet and testnet use the same coin-type path in the current implementation. Signed transactions are broadcast directly from the client through public relays; private keys do not pass through the Salmon backend.
+Account derivation uses `m/44'/0'/{index}'/0/0` and produces P2PKH addresses. Mainnet and testnet use the same coin-type path in the current implementation. Spending those P2PKH outputs requires the full previous transaction (`nonWitnessUtxo`), which the current backend provider does not supply. This is the missing contract that prevents Bitcoin sending from completing.
+
+The intended broadcast path is client-side through public relays; private keys and signed Bitcoin bytes do not pass through the Salmon backend. Do not treat the presence of the transaction-building modules as evidence that sending is supported.
 
 ## Network availability
 

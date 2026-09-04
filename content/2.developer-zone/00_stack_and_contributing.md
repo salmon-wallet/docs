@@ -36,7 +36,8 @@ Key creation and transaction signing stay in the client. The backend returns pub
 ## Supported chains
 
 - Solana: active and the most developed integration.
-- Bitcoin: active for balances, history, UTXOs, sending, and receiving.
+- Bitcoin: active for balances, history, UTXOs, and receiving. Sending is not available end to end in the current product.
+
 The backend's `/v1/networks` response is the runtime source of truth for enabled networks and features.
 
 ## Source versions reviewed
