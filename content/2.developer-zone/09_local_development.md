@@ -50,7 +50,7 @@ pnpm check:parity
 
 ## Backend
 
-Copy `.env.example` to `.env` and configure the provider credentials needed by the routes you are testing. In particular, local startup currently requires a valid `HELIUS_API_KEY`; keep it only in the ignored `.env` file and never commit it.
+Copy `.env.example` to `.env` and configure the provider credentials needed by the routes you are testing. Local Solana functionality requires a valid RPC endpoint; it does not require Helius specifically. Keep RPC URLs, API keys, and tokens only in the ignored `.env` file and never commit them.
 
 Start Redis with Docker Compose, then run the Serverless offline target as described in the backend README. By default, the API is available at `http://127.0.0.1:3000/local`; the frontend is already configured to use that URL during local development.
 
