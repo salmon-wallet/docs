@@ -4,6 +4,9 @@
     "dev": "nuxt dev --extends docus",
     "build": "nuxt build --extends docus"
   },
+  "engines": {
+    "node": "20.x || >=22 <26"
+  },
   "dependencies": {
     "docus": "latest",
     "better-sqlite3": "^12.2.0",

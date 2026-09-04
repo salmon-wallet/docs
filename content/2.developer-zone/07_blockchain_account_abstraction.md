@@ -99,7 +99,7 @@ Key methods include:
 - `getAllNfts()`: Fetches owned NFTs.
 All return chain-agnostic objects, like `{ address: 'abc...', uiAmount: 1.5 }`.
 
-In our use case, `getBalance()` feeds the token list in [UI Component Library](02_ui_component_library.md) cards.
+In our use case, `getBalance()` feeds the token list described in [UI Component Library](02_ui_component_library.md).
 
 ## Step-by-Step Walkthrough: Fetching Balance in the Use Case
 
@@ -168,9 +168,9 @@ class CachedBlockchainAccount {
 }
 ```
 
-**Explanation:** Input to constructor: Base object (with seed-derived keys). Output: Wrapped instance. The `cache(key, type, fetchFn)` (from `src/utils/cache.js`) uses a Map for in-memory storage, expiring after ~5 minutes (tunable). For `getTokens()`, it fetches from RPC (e.g., Solana's `getTokenAccountsByOwner`), normalizes to `{ address, uiAmount, symbol }`, and stores. In our use case, this lists tokens for the [TokenList](src/features/TokenList/TokenList.js) component—call once, reuse everywhere.
+**Explanation:** Input to constructor: Base object (with seed-derived keys). Output: Wrapped instance. The `cache(key, type, fetchFn)` (from `src/utils/cache.js`) uses a Map for in-memory storage, expiring after ~5 minutes (tunable). For `getTokens()`, it fetches from RPC (e.g., Solana's `getTokenAccountsByOwner`), normalizes to `{ address, uiAmount, symbol }`, and stores. In our use case, this lists tokens for the `TokenList` component—call once, reuse everywhere.
 
-For transactions, like `createTransferTransaction()` in send flows (e.g., [TokenSendPage](src/pages/Token/TokenSendPage.js)), it builds a chain-specific TX (Solana instruction vs. Ethereum calldata) but returns a unified `{ txId, executableTx }` for signing. No caching here (one-time ops), but validation uses abstraction like `validateDestinationAccount(address)` to check if "abc123" is valid on the current chain.
+For transactions, like `createTransferTransaction()` in send flows (e.g., `TokenSendPage`), it builds a chain-specific transaction but returns a unified `{ txId, executableTx }` for signing. No caching applies to this one-time operation; validation uses an abstraction such as `validateDestinationAccount(address)` to check whether a destination is valid on the current chain.
 
 **Beginner tip:** Test by logging `activeBlockchainAccount.getBalance()` in a console—watch it fetch/caches across networks. Errors? Often network-specific; abstraction logs the base error for debugging.
 

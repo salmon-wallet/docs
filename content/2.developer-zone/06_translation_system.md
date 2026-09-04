@@ -176,7 +176,7 @@ Internally, the system starts in `src/translations/index.js`, exporting i18n as 
 
 In `src/hooks/useTranslations.js`, the `useEffect` runs once: It fetches from `STORAGE_KEYS.LANGUAGE` (e.g., 'language' key), inits i18next with `compatibilityJSON: 'v3'` for safe key handling (ignores extra dots), and sets interpolation to false (no variable escaping needed here). The `changeLanguage` is async for storage, ensuring the UI waits—no flickering.
 
-The HOC in the hook (`withTranslationHOC` from i18next) wraps components, injecting `t` via React context—e.g., Input: Key; Output: Scans active resources for match, falls back if missing. In [AppProvider](04_appprovider.js), it spreads `{ selectedLanguage, changeLanguage }` into Context value, so hooks like `useContext(AppContext)` grab them easily.
+The HOC in the hook (`withTranslationHOC` from i18next) wraps components, injecting `t` via React context—e.g., Input: Key; Output: Scans active resources for match, falls back if missing. In `src/AppProvider.js`, it spreads `{ selectedLanguage, changeLanguage }` into Context value, so hooks like `useContext(AppContext)` grab them easily.
 
 **Beginner tip:** Missing translation? Console warns; add to JSON. Test by forcing `changeLanguage('es')` in dev tools—watch buttons morph!
 

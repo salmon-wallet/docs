@@ -8,6 +8,8 @@ This repository powers the public documentation for [Salmon Wallet](https://salm
 
 ## Quick start
 
+Use Node.js 20, or a version from 22 through 25. Node.js 26 is not currently supported by the project's SQLite dependency.
+
 ```bash
 # Install dependencies
 npm install
@@ -45,6 +47,8 @@ Built with [Nuxt 4](https://nuxt.com), [Nuxt Content](https://content.nuxt.com/)
 ## Contributing
 
 Contributions of all kinds are welcome—bug fixes, new guides, or clarification to make onboarding clearer. Clone the repo, run `npm run dev`, and open a pull request describing your changes. Feedback and discussion in issues help us prioritize what the community needs most.
+
+For product and architecture documentation, verify claims against the corresponding source revision. Include links to relevant source files or pull requests, distinguish released behavior from planned work, and test commands and links before submitting.
 
 ## Security
 

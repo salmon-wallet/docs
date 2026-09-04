@@ -10,6 +10,10 @@ seo:
 
 ## Stack at a glance
 
+::warning
+This section describes the wallet architecture as understood when these docs were written. Verify versions, scripts, paths, and platform behavior against the wallet source repository before relying on them. A source-backed revision is planned.
+::
+
 - React 18 + React Native 0.70 for shared UI and logic.
 - Web client uses Create React App; browser extensions target Chrome/Brave and Firefox.
 - Solana integration via `@solana/web3.js` 1.95.x; Bitcoin flows use BitcoinJS.
