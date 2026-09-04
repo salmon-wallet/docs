@@ -10,7 +10,9 @@ seo:
 
 ## Public HTTP API
 
-The backend's OpenAPI document is the canonical wire reference. Current endpoint groups are:
+The backend's OpenAPI document is the canonical wire reference. For parameters, examples, response behavior, and errors, see the [Backend API Reference](/developer-zone/10_backend_api_reference).
+
+Current endpoint groups are:
 
 | Area | Endpoints |
 | --- | --- |
@@ -26,6 +28,8 @@ The backend's OpenAPI document is the canonical wire reference. Current endpoint
 | Analytics | `POST /v1/events` |
 
 Public response shaping belongs in backend resources. Shared frontend wrappers live in `packages/shared/src/api/services`; applications should not call these endpoints through duplicate local clients.
+
+The public API does not require client credentials. Browser access is CORS-restricted and `/v1` routes are rate-limited, so consumers must handle `4xx`, `5xx`, and temporary provider failures explicitly.
 
 ## Signing boundary
 

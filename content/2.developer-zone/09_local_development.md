@@ -52,7 +52,26 @@ pnpm check:parity
 
 Copy `.env.example` to `.env` and configure the provider credentials needed by the routes you are testing. Local Solana functionality requires a valid RPC endpoint; it does not require Helius specifically. Keep RPC URLs, API keys, and tokens only in the ignored `.env` file and never commit them.
 
+For Solana, `TRITON_RPC_URL` is the primary mainnet RPC setting. Despite its name, the backend accepts a complete compatible RPC URL here; `TRITON_API_TOKEN` is only needed when a Triton URL does not already contain its token. `HELIUS_API_KEY` enables the Helius fallback and enhanced API, but it is not required when the configured primary provider covers the functionality being tested.
+
+| Variable | Required when | Purpose |
+| --- | --- | --- |
+| `TRITON_RPC_URL` | Testing Solana mainnet through the primary path | Mainnet RPC and DAS endpoint |
+| `TRITON_RPC_URL_DEVNET` | Using a private devnet provider | Optional devnet RPC; otherwise the public Solana devnet RPC is used for basic calls |
+| `TRITON_API_TOKEN` | The configured Triton URL does not already embed its token | Appended to bare Triton URLs |
+| `HELIUS_API_KEY` | Testing Helius fallback or Helius-only enhanced functionality | Fallback RPC, DAS, and enhanced transactions |
+| `REDIS_*` | Running routes that use cache or rate limiting | Local Redis connection |
+
 Start Redis with Docker Compose, then run the Serverless offline target as described in the backend README. By default, the API is available at `http://127.0.0.1:3000/local`; the frontend is already configured to use that URL during local development.
+
+Verify the process and its dependencies separately:
+
+```bash
+curl http://127.0.0.1:3000/local/status
+curl http://127.0.0.1:3000/local/health
+```
+
+`/status` identifies the running build. `/health` also checks dependencies, including Redis, and can return `500` while the HTTP process itself is running.
 
 Core checks:
 
